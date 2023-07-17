@@ -10,6 +10,9 @@ public class Movement : MonoBehaviour
     [SerializeField] private float _speed = 5f;
     [SerializeField] private float _jumpForce = 200f;
 
+    private const string Speed = "Speed";
+    private const string IsJumping = "isJumping";
+
     private Rigidbody2D _rigidbody2D;
     private Animator _animator;
     private SpriteRenderer _spriteRenderer;
@@ -33,7 +36,7 @@ public class Movement : MonoBehaviour
         float direction = Input.GetAxis("Horizontal");
 
         _rigidbody2D.velocity = new Vector2(direction * _speed, _rigidbody2D.velocity.y);
-        _animator.SetFloat("Speed", Mathf.Abs(direction));
+        _animator.SetFloat(Speed, Mathf.Abs(direction));
         _spriteRenderer.flipX = direction < 0 ? true : false;
     }
 
@@ -48,7 +51,7 @@ public class Movement : MonoBehaviour
         if (collision.gameObject.TryGetComponent(out Ground _))
         {
             _isGround = true;
-            _animator.SetBool("isJumping", _isGround);
+            _animator.SetBool(IsJumping, _isGround);
         }
     }
 
@@ -57,7 +60,7 @@ public class Movement : MonoBehaviour
         if (collision.gameObject.TryGetComponent(out Ground _))
         {
             _isGround = false;
-            _animator.SetBool("isJumping", _isGround);
+            _animator.SetBool(IsJumping, _isGround);
         }
     }
 }
