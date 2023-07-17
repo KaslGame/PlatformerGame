@@ -7,8 +7,6 @@ public class Wallet : MonoBehaviour
 {
     [SerializeField] private int _money;
 
-    public event UnityAction<int> MoneyChanged;
-
     public int GetMoney()
     {
         return _money;
@@ -17,6 +15,16 @@ public class Wallet : MonoBehaviour
     public void AddMoney(int money)
     {
         _money += money;
-        MoneyChanged?.Invoke(money);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        int oneCoin = 1;
+
+        if (collision.TryGetComponent(out Coin _))
+        {
+            Destroy(collision.gameObject);
+            AddMoney(oneCoin);
+        }
     }
 }
