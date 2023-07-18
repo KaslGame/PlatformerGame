@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+[RequireComponent(typeof(Slider))]
 public class HealthBar : MonoBehaviour
 {
     [SerializeField] private Player _player;
@@ -18,15 +19,15 @@ public class HealthBar : MonoBehaviour
 
     private void OnEnable()
     {
-        _player.HealthChanged += OnStateChanged;
+        _player.HealthChanged += OnHealthChanged;
     }
 
     private void OnDisable()
     {
-        _player.HealthChanged -= OnStateChanged;
+        _player.HealthChanged -= OnHealthChanged;
     }
 
-    private void OnStateChanged(int healthChanged)
+    private void OnHealthChanged(int healthChanged)
     {
         if (_coroutine != null)
             StopCoroutine(_coroutine);
