@@ -9,24 +9,18 @@ public class Player : MonoBehaviour
     private int _maxHealth = 100;
     private int _minHealth = 0;
 
-    public UnityAction<int> HealthChanged;
+    public event UnityAction<int> HealthChanged;
 
     public void Heal(int heal)
     {
-        _health += heal;
-
-        if (_health > _maxHealth)
-            _health = _maxHealth;
+        _health = Mathf.Clamp(_health + heal, _minHealth, _maxHealth);
 
         HealthChanged?.Invoke(_health);
     }
 
     public void TakeDamage(int damage)
     {
-        _health -= damage;
-
-        if (_health < _minHealth)
-            _health = _minHealth;
+        _health = Mathf.Clamp(_health - damage, _minHealth, _maxHealth);
 
         HealthChanged?.Invoke(_health);
     }

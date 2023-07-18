@@ -6,16 +6,14 @@ using UnityEngine.UI;
 
 public class HealthBar : MonoBehaviour
 {
-    private const string PlayerTag = "Player";
+    [SerializeField] private Player _player;
 
     private Slider _slider;
-    private Player _player;
     private Coroutine _coroutine;
 
     private void Awake()
     {
         _slider = GetComponent<Slider>();
-        _player = GameObject.FindGameObjectWithTag(PlayerTag).GetComponent<Player>();
     }
 
     private void OnEnable()
